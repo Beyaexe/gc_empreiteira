@@ -1,0 +1,444 @@
+:root {
+    --bg-dark-custom: hsl(1, 1.5%, 12.7%);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+
+    /* Ajustes da Navbar */
+.navbar-brand img {
+    /* Garante que o logo não fique distorcido */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Estilo dos links de navegação */
+.nav-link {
+    font-size: 0.9rem;
+    color: #333 !important; /* Cor padrão */
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+/* Efeito ao passar o mouse nos links */
+.nav-link:hover, .nav-link.active {
+    color: #ffc107 !important; /* Amarelo da marca */
+}
+
+/* Pequeno traço amarelo abaixo do link ao passar o mouse */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 5px;
+    left: 0;
+    background-color: #ffc107;
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Ajuste do botão de contato na nav */
+.btn-contact {
+    transition: transform 0.2s;
+}
+.btn-contact:hover {
+    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+    background-color: #e0a800; /* Amarelo um pouco mais escuro */
+    border-color: #e0a800;
+}
+
+
+/* Hero Section Centralizada */
+.hero-section {
+    padding: 0;
+    position: relative;
+    min-height: 90vh; /* Ocupa a tela toda para mais impacto */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.8s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Overlay escuro para garantir leitura */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65); /* Escurece a foto */
+    z-index: 1;
+}
+
+/* Conteúdo centralizado */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center; /* Centraliza tudo */
+}
+
+/* Título G&C EMPREITEIRA */
+.brand-title {
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra suave para destacar do fundo */
+}
+
+/* Texto que muda (Slide) */
+.hero-carousel-text {
+    font-weight: 300; /* Fonte mais leve para contraste com o título */
+    font-size: 2rem; /* Tamanho grande e legível */
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+    margin: 0;
+}
+
+/* Destaque Amarelo nos serviços */
+.highlight-service {
+    color: #ffc107; /* Amarelo */
+    font-weight: 700; /* Negrito */
+    border-bottom: 3px solid #ffc107; /* Sublinhado amarelo */
+    padding-bottom: 2px;
+}
+
+/* Ajuste de altura do carousel para não "pular" */
+.carousel-item {
+    min-height: 80px; 
+    transition: transform .6s ease-in-out, opacity .6s ease-in-out;
+}
+
+/* --- CUSTOMIZAÇÃO DA TRANSIÇÃO DO CARROSSEL HERO --- */
+
+/* 1. Configuração base dos itens: todos invisíveis e sobrepostos */
+#heroCarousel .carousel-item {
+    display: block !important; /* Força display block para permitir fade */
+    opacity: 0;                /* Começa invisível */
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Transição longa e suave */
+    position: absolute;        /* Garante que fiquem um em cima do outro */
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: none !important; /* Remove qualquer movimento lateral do Bootstrap */
+    z-index: 1;
+}
+
+/* 2. O item ativo se torna visível */
+#heroCarousel .carousel-item.active {
+    opacity: 1;
+    position: relative; /* O ativo volta ao fluxo normal para dar altura ao container */
+    z-index: 2;
+}
+
+/* 3. Correção para o momento exato da troca (evita o "pulo" visual) */
+#heroCarousel .active.carousel-item-start,
+#heroCarousel .active.carousel-item-end {
+    opacity: 0;
+    z-index: 1;
+}
+
+/* --- Efeito de entrada no Texto --- */
+#heroCarousel .carousel-item .hero-carousel-text {
+    opacity: 0;
+    transform: translateY(20px); /* Começa um pouco mais baixo */
+    transition: all 0.4s ease-out; /* Demora um pouco para subir */
+    transition-delay: 0.3s; /* Espera um pouquinho a imagem de fundo trocar */
+}
+
+#heroCarousel .carousel-item.active .hero-carousel-text {
+    opacity: 1;
+    transform: translateY(0); /* Vai para a posição original */
+}
+
+/* Responsividade para celular */
+@media (max-width: 768px) {
+    .brand-title { font-size: 3rem; }
+    .hero-carousel-text { font-size: 1.25rem; }
+}
+
+/* Estilização da seção escura conforme projeto raiz */
+.bg-custom-dark {
+    background-color: var(--bg-dark-custom);
+    color: #ffffff;
+    /* Texto branco para contraste */
+}
+
+.bg-custom-dark .text-muted {
+    color: #adb5bd !important;
+    /* Cinza claro para descrições no fundo escuro */
+}
+
+/* Ajuste dos botões e placeholders para o fundo escuro */
+.bg-custom-dark .btn-outline-custom {
+    color: #ffffff;
+    border-color: #ffffff;
+    transition: 0.3s;
+}
+
+.bg-custom-dark .btn-outline-custom:hover {
+    background-color: #ffffff;
+    color: var(--bg-dark-custom);
+}
+
+/* Placeholder do ícone mais visível */
+.service-icon-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+/* Estilo do Card de Serviço */
+    .service-card {
+        background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente mais claro que o preto */
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+        border-radius: 16px; /* Bordas arredondadas */
+        padding: 2rem; /* Espaçamento interno vital para o mobile */
+        height: 100%; /* Garante que todos tenham a mesma altura */
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Alinhamento à esquerda fica mais organizado */
+    }
+
+    /* Efeito ao passar o mouse (apenas desktop) */
+    .service-card:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px); /* O card "flutua" */
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Ícone */
+    .service-icon-placeholder {
+        width: 50px; 
+        height: 50px; 
+        border-radius: 10px;
+        background-color: #ffc107; /* Amarelo (Warning) para destaque */
+        color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 10px;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Estilo da Lista (<ul>) para ficar mais bonita que bolinhas padrão */
+    .service-list {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+        width: 100%;
+    }
+
+    .service-list li {
+        color: #e0e0e0;
+        font-size: 0.95rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Pequena seta ou marcador antes do item da lista */
+    .service-list li::before {
+        content: "•"; 
+        color: #ffc107; /* Marcador amarelo */
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    /* Botão dentro do card */
+    .mt-auto {
+        margin-top: auto; /* Empurra o botão para o final do card sempre */
+    }
+
+
+    /* Ajustes da Seção Projetos */
+/* .project-image {
+    object-fit: cover;
+    height: 500px;
+    width: 100%;
+    border-radius: 12px 0 0 12px;
+} */
+
+.project-image {
+    width: 100%;
+    
+    /* Substitui o height: 500px fixo */
+    /* 1 / 1 = Quadrado */
+    /* 4 / 3 = Foto de câmera padrão */
+    /* 16 / 9 = Widescreen (tipo cinema) */
+    aspect-ratio: 4 / 3; 
+    
+    object-fit: cover;
+    border-radius: 16px 0 0 16px;
+}
+
+/* No mobile, precisamos ajustar o arredondamento e talvez a proporção */
+@media (max-width: 991px) {
+    .project-image {
+        border-radius: 16px 16px 0 0;
+        aspect-ratio: 16 / 9; /* Mais panorâmico no celular para não ocupar a tela toda */
+    }
+}
+
+/* Container do texto do projeto */
+.project-content {
+    padding: 3rem;
+    background-color: #f8f9fa; /* Cinza bem claro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0 12px 12px 0; /* Arredonda a direita */
+}
+
+
+/* Setas de navegação customizadas */
+.custom-nav-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: none;
+    opacity: 1; /* Força visibilidade */
+}
+
+.custom-nav-btn:hover {
+    background-color: #ffc107; /* Amarelo no hover */
+    transform: scale(1.1);
+}
+
+
+#projetosCarousel {
+    position: relative;
+}
+
+#projetosCarousel .carousel-inner {
+    overflow: visible;
+    background-color: #f8f9fa; /* Cinza bem claro */
+
+}
+
+#projetosCarousel .carousel-indicators {
+    bottom: 15px;
+}
+
+#projetosCarousel .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    opacity: 1;
+}
+
+#projetosCarousel .carousel-indicators .active {
+    background-color: #f5b400;
+}
+
+/* Container dos controles (Setas + Indicators) */
+.controls-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza tudo */
+    gap: 1rem;
+    margin-top: auto; /* Empurra para o fundo */
+    padding-top: 2rem;
+    position: relative; /* Necessário para os indicadores funcionarem bem aqui */
+}
+
+/* Barra de Controles (Setas + Bolinhas) */
+.controls-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* AQUI ESTÁ A MÁGICA: Centraliza tudo horizontalmente */
+    gap: 1.5rem; /* Espaço entre setas e bolinhas */
+    margin-top: auto; /* Empurra a barra para o final do card */
+    padding-top: 2rem;
+    width: 100%;
+}
+
+/* Bolinhas (Indicators) */
+.carousel-indicators-custom {
+    display: flex;
+    gap: 10px; /* Espaço entre as bolinhas */
+}
+
+.carousel-indicators-custom button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background-color: #d1d1d1; /* Cinza inativo */
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-indicators-custom button.active {
+    background-color: #ffc107; /* Amarelo Ativo */
+    transform: scale(1.3); /* Aumenta um pouco o ativo */
+}
+
+/* Botões de Seta (Círculos) */
+.nav-arrow-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #212529; /* Preto suave */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.nav-arrow-btn:hover {
+    background-color: #ffc107; /* Amarelo no hover */
+    color: black;
+    transform: translateY(-2px); /* Leve subida */
+}
+
+/* Ajustes Mobile */
+@media (max-width: 991px) {
+    .project-image {
+        height: 300px;
+        border-radius: 16px 16px 0 0;
+    }
+    .project-content {
+        border-radius: 0 0 16px 16px;
+        min-height: auto; /* Altura automática no mobile */
+        padding: 2rem;
+    }
+}
+
+
