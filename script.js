@@ -6,6 +6,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var heroCarouselElement = document.getElementById('heroCarousel');
     var heroSection = document.getElementById('hero');
 
+    var heroCarouselElement = document.getElementById('heroCarousel');
+    var heroSection = document.getElementById('hero');
+
+    // === NOVO CÓDIGO: PRÉ-CARREGAMENTO DE IMAGENS ===
+    if (heroCarouselElement) {
+        var items = heroCarouselElement.querySelectorAll('.carousel-item');
+        
+        items.forEach(function(item) {
+            var bgUrl = item.getAttribute('data-bg');
+            if (bgUrl) {
+                var img = new Image();
+                img.src = bgUrl; // Isso força o navegador a baixar a imagem e deixar em cache
+            }
+        });
+    }
+
     if (heroCarouselElement) {
         // Inicializa APENAS o Hero Carousel manualmente
         var heroInstance = new bootstrap.Carousel(heroCarouselElement, {
