@@ -2,13 +2,20 @@
     --bg-dark-custom: hsl(1, 1.5%, 12.7%);
 }
 
+html{
+    overflow-x: hidden;
+    max-width: 100%;
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
+.navbar{
+    padding: 0 !important;
+}
 
-    /* Ajustes da Navbar */
+/* Ajustes da Navbar */
 .navbar-brand img {
     /* Garante que o logo não fique distorcido */
     width: auto;
@@ -206,10 +213,9 @@ body {
 
 .carousel-item img {
     width: 100%;
-    height: auto;
     border-radius: 8px;
+    object-fit: cover;
 }
-
 
 /* Estilo do Card de Serviço */
     .service-card {
@@ -279,166 +285,263 @@ body {
     }
 
 
-    /* Ajustes da Seção Projetos */
-/* .project-image {
-    object-fit: cover;
-    height: 500px;
-    width: 100%;
-    border-radius: 12px 0 0 12px;
-} */
 
-.project-image {
-    width: 100%;
-    
-    /* Substitui o height: 500px fixo */
-    /* 1 / 1 = Quadrado */
-    /* 4 / 3 = Foto de câmera padrão */
-    /* 16 / 9 = Widescreen (tipo cinema) */
-    aspect-ratio: 4 / 3; 
-    
-    object-fit: cover;
-    border-radius: 16px 0 0 16px;
-}
-
-/* No mobile, precisamos ajustar o arredondamento e talvez a proporção */
-@media (max-width: 991px) {
-    .project-image {
-        border-radius: 16px 16px 0 0;
-        aspect-ratio: 16 / 9; /* Mais panorâmico no celular para não ocupar a tela toda */
-    }
-}
-
-/* Container do texto do projeto */
-.project-content {
-    padding: 3rem;
-    background-color: #f8f9fa; /* Cinza bem claro */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 0 12px 12px 0; /* Arredonda a direita */
-}
-
-
-/* Setas de navegação customizadas */
-.custom-nav-btn {
-    width: 50px;
-    height: 50px;
-    background-color: #333;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    border: none;
-    opacity: 1; /* Força visibilidade */
-}
-
-.custom-nav-btn:hover {
-    background-color: #ffc107; /* Amarelo no hover */
-    transform: scale(1.1);
-}
-
-
-#projetosCarousel {
-    position: relative;
-}
-
-#projetosCarousel .carousel-inner {
-    overflow: visible;
-    background-color: #f8f9fa; /* Cinza bem claro */
-
-}
-
-#projetosCarousel .carousel-indicators {
-    bottom: 15px;
-}
-
-#projetosCarousel .carousel-indicators button {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    opacity: 1;
-}
-
-#projetosCarousel .carousel-indicators .active {
-    background-color: #f5b400;
-}
-
-/* Container dos controles (Setas + Indicators) */
-.controls-bottom-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza tudo */
-    gap: 1rem;
-    margin-top: auto; /* Empurra para o fundo */
-    padding-top: 2rem;
-    position: relative; /* Necessário para os indicadores funcionarem bem aqui */
-}
-
-/* Barra de Controles (Setas + Bolinhas) */
-.controls-bottom-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* AQUI ESTÁ A MÁGICA: Centraliza tudo horizontalmente */
-    gap: 1.5rem; /* Espaço entre setas e bolinhas */
-    margin-top: auto; /* Empurra a barra para o final do card */
-    padding-top: 2rem;
-    width: 100%;
-}
-
-/* Bolinhas (Indicators) */
+/* Bolinhas (Indicadores) */
 .carousel-indicators-custom {
     display: flex;
-    gap: 10px; /* Espaço entre as bolinhas */
+    gap: 8px;
 }
 
 .carousel-indicators-custom button {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     border: none;
-    background-color: #d1d1d1; /* Cinza inativo */
+    background-color: #e0e0e0;
     transition: all 0.3s ease;
     padding: 0;
 }
 
 .carousel-indicators-custom button.active {
-    background-color: #ffc107; /* Amarelo Ativo */
-    transform: scale(1.3); /* Aumenta um pouco o ativo */
+    background-color: #ffc107;
+    transform: scale(1.2);
 }
 
-/* Botões de Seta (Círculos) */
-.nav-arrow-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: #212529; /* Preto suave */
-    border: none;
+/* --- CONFIGURAÇÃO GERAL DO MOSAICO --- */
+.project-mosaic {
+    display: grid;
+    /* Mudei levemente para dar mais largura para a direita, 
+       ajuda a cortar menos as fotos verticais */
+    grid-template-columns: 2fr 1.2fr; 
+    gap: 8px;
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0.5rem;
+    box-sizing: border-box; /* Garante que bordas não aumentem o tamanho */
+}
+
+/* Imagem Principal (Esquerda) */
+.project-mosaic > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- COLUNA DA DIREITA (GRID RÍGIDO) --- */
+.mosaic-right-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* DUAS LINHAS DE 50% EXATOS. O 1fr 1fr garante divisão matemática */
+    grid-template-rows: 1fr 1fr; 
+    height: 100%; /* Ocupa os 450px do pai */
+    gap: 8px;
+    overflow: hidden;
+}
+
+.mosaic-right-col img {
+    width: 100% !important;
+    height: 100% !important; /* Obriga a imagem a ocupar a célula do grid */
+    
+    /* O SEGREDO DO CORTE */
+    object-fit: cover; 
+    object-position: center center; /* Tenta centralizar o corte */
+    
+    display: block;
+    border-radius: 0 !important;
+    min-height: 0 !important;
+    
+    /* Removemos qualquer borda de teste aqui, pois borda ocupa pixel */
+    border: none !important; 
+}
+/* --- ESTILOS DOS CONTROLES (Mantive os seus) --- */
+.controls-bottom-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    color: white;
+    gap: 1.2rem;
+    margin-top: 0; 
+    padding-top: 0;
+    width: 100%;
 }
-
+.nav-arrow-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background-color: #212529; border: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease; color: white;
+}
 .nav-arrow-btn:hover {
-    background-color: #ffc107; /* Amarelo no hover */
-    color: black;
-    transform: translateY(-2px); /* Leve subida */
+    background-color: #ffc107; color: black; transform: translateY(-2px);
+}
+.carousel-indicators-custom { display: flex; gap: 8px; }
+.carousel-indicators-custom button {
+    width: 10px; height: 10px; border-radius: 50%; border: none;
+    background-color: #e0e0e0; transition: all 0.3s ease; padding: 0;
+}
+.carousel-indicators-custom button.active {
+    background-color: #ffc107; transform: scale(1.2);
 }
 
-/* Ajustes Mobile */
+
+/* --- CONFIGURAÇÃO DO MOSAICO HORIZONTAL (T INVERTIDO) --- */
+.project-mosaic-horizontal {
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1.15fr 1fr; 
+    gap: 8px;
+    height: 530px; /* Mantém a altura padrão */
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0.5rem;
+}
+
+.project-mosaic-horizontal > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* Importante: Garante que a imagem de cima não roube espaço */
+    min-height: 0; 
+}
+
+/* NOVA CLASSE PARA A LINHA DE BAIXO */
+.mosaic-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr;       
+    height: 100%;
+    gap: 8px;
+    overflow: hidden;
+    /* Importante: Garante que o container de baixo apareça */
+    min-height: 0;
+}
+
+.mosaic-bottom-row img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+    border-radius: 0 !important;
+    min-height: 0 !important; 
+}
+
+
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
 @media (max-width: 991px) {
-    .project-image {
-        height: 300px;
-        border-radius: 16px 16px 0 0;
+    .project-mosaic {
+        grid-template-columns: 1fr; 
+        grid-template-rows: 380px 220px; /* Alturas fixas */
+        height: auto !important;
     }
-    .project-content {
-        border-radius: 0 0 16px 16px;
-        min-height: auto; /* Altura automática no mobile */
-        padding: 2rem;
+
+    .project-mosaic > img {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .mosaic-right-col {
+        grid-template-columns: 1fr 1fr; /* Lado a lado */
+        grid-template-rows: 1fr;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* --- RESPONSIVIDADE PARA O HORIZONTAL --- */
+
+/* 1. TABLETS e MONITORES MENORES (Entre 768px e 991px) */
+/* Aqui o card fica um pouco menor que no desktop para não estourar a tela */
+@media (max-width: 991px) {
+    .project-mosaic-horizontal {
+        height: 400px !important; /* Reduzimos de 530px para 400px */
+        
+        /* Mantemos a proporção visual, mas com números fixos para segurança */
+        grid-template-rows: 240px 152px !important; 
+        
+        margin: 0 !important; /* Remove margens laterais para aproveitar espaço */
+    }
+}
+
+/* 2. CELULARES (Abaixo de 768px) */
+/* Aqui o foco é legibilidade em telas estreitas */
+@media (max-width: 767px) {
+    .project-mosaic-horizontal {
+        height: auto !important; /* Altura livre */
+        
+        /* Topo: 220px (Tamanho bom para ver a foto principal)
+           Baixo: 130px (Altura suficiente para as duas fotos não ficarem "tiras")
+        */
+        grid-template-rows: 200px 160px !important;
+        
+        border-radius: 1rem 1rem 0 0; /* Arredonda só em cima */
+    }
+    
+    /* Garante que a linha de baixo tenha a altura correta */
+    .mosaic-bottom-row {
+        height: 130px !important; 
     }
 }
 
 
+
+
+/* --- BOTÃO WHATSAPP FLUTUANTE --- */
+.btn-whatsapp {
+    position: fixed; /* Fixa na tela mesmo ao rolar */
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999; /* Garante que fique acima de tudo */
+    
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Deixa redondo */
+    
+    background-color: #25d366; /* Verde oficial do WhatsApp */
+    color: #fff; /* Ícone branco */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-size: 32px; /* Tamanho do ícone */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    text-decoration: none;
+    
+    transition: all 0.3s ease;
+    animation: pulse-green 2s infinite; /* Animação de pulso */
+}
+
+/* Efeito ao passar o mouse */
+.btn-whatsapp:hover {
+    background-color: #128c7e; /* Verde um pouco mais escuro */
+    transform: scale(1.1); /* Aumenta levemente */
+    color: #fff;
+}
+
+/* --- ANIMAÇÃO DE PULSO (Chama atenção) --- */
+@keyframes pulse-green {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* --- AJUSTE PARA CELULAR (Mobile) --- */
+@media (max-width: 768px) {
+    .btn-whatsapp {
+        width: 65px;       /* Um pouco menor no celular */
+        height: 65px;
+        bottom: 40px;      /* Mais próximo da borda */
+        right: 20px;
+        font-size: 26px;   /* Ícone proporcional */
+    }
+}
