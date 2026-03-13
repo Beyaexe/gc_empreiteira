@@ -6,9 +6,23 @@ html{
     overflow-x: hidden;
     max-width: 100%;
 }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
+}
+
+body::after {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: -1;
+    
+    content: url('src/img/obra-civil.webp') 
+             url('src/img/instalacoes.webp') 
+             url('src/img/acabamento.webp') 
+             url('src/img/gerenciamento_obras.webp');
 }
 
 .navbar{
